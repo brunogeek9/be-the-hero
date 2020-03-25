@@ -1,11 +1,23 @@
-import React, {useEffect} from 'react'
+import React, { useEffect, useState } from 'react'
 import './styles.css'
 import logoImg from '../../assets/logo.svg'
 import { Link } from 'react-router-dom';
 import { FiPower, FiTrash2 } from 'react-icons/fi';
+import api from '../../services/api';
 
 export default function Profile() {
     let ongName = localStorage.getItem('ongName');
+    let ongId = localStorage.getItem('ongId');
+    const [incidents, setIncidents] = useState([]);
+    useEffect(() => {
+        api.get('profile', {
+            headers: {
+                autorization: ongId
+            }
+        }).then(response => {
+            setIncidents(response.data);
+        })
+    }, [])
     return (
         <div className="profile-container">
             <header>
@@ -20,61 +32,21 @@ export default function Profile() {
             </header>
             <h1>Casos Cadastrados</h1>
             <ul>
-                <li>
-                    <strong> Caso:</strong>
-                    <p>Caso Fake</p>
-                    <strong>Descrição:</strong>
-                    <p>descrição fake</p>
+                {incidents.map(incident => (
+                    <li>
+                        <strong> Caso:</strong>
+                        <p>{incident.title}</p>
+                        <strong>Descrição:</strong>
+                        <p>{incident.description}</p>
 
-                    <strong>Valor:</strong>
-                    <p>0.00</p>
+                        <strong>Valor:</strong>
+                        <p>{incident.value}</p>
 
-                    <button type="button">
-                        <FiTrash2 size={20} color="#a8a8b3" />
-                    </button>
-                </li>
-
-                <li>
-                    <strong> Caso:</strong>
-                    <p>Caso Fake</p>
-                    <strong>Descrição:</strong>
-                    <p>descrição fake</p>
-
-                    <strong>Valor:</strong>
-                    <p>0.00</p>
-
-                    <button type="button">
-                        <FiTrash2 size={20} color="#a8a8b3" />
-                    </button>
-                </li>
-
-                <li>
-                    <strong> Caso:</strong>
-                    <p>Caso Fake</p>
-                    <strong>Descrição:</strong>
-                    <p>descrição fake</p>
-
-                    <strong>Valor:</strong>
-                    <p>0.00</p>
-
-                    <button type="button">
-                        <FiTrash2 size={20} color="#a8a8b3" />
-                    </button>
-                </li>
-
-                <li>
-                    <strong> Caso:</strong>
-                    <p>Caso Fake</p>
-                    <strong>Descrição:</strong>
-                    <p>descrição fake</p>
-
-                    <strong>Valor:</strong>
-                    <p>0.00</p>
-
-                    <button type="button">
-                        <FiTrash2 size={20} color="#a8a8b3" />
-                    </button>
-                </li>
+                        <button type="button">
+                            <FiTrash2 size={20} color="#a8a8b3" />
+                        </button>
+                    </li>
+                ))}
             </ul>
         </div>
     )
