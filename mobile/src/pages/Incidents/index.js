@@ -12,11 +12,8 @@ export default function Incidents() {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
 
-
-
     function navigateToDetail(incident) {
         navigator.navigate("Detail", { incident });
-        // console.log('clicou');
     }
     async function loadIncidents() {
         if (loading) {
@@ -38,11 +35,12 @@ export default function Incidents() {
         setTotal(response.headers['x-total-count']);
         setPage(page + 1);
         setLoading(false);
-
     }
+    
     useEffect(() => {
         loadIncidents();
-    }, [])
+    }, []);
+
     return (
         <View style={Styles.container}>
             <View style={Styles.header}>

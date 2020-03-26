@@ -8,7 +8,7 @@ module.exports = {
         return res.json({ id });
     },
     async index(req, res) {
-        const { page = 1 } = req.params;
+        const { page = 1 } = req.query;
         console.log(`Pagina ${page}`);
         const [count] = await con(TABLE_NAME).count();
         console.log(count);
