@@ -18,6 +18,20 @@ export default function Profile() {
             setIncidents(response.data);
         })
     }, [])
+
+    async function deleteIncident(id) {
+        try {
+            await api.delete(`incidents/${id}`, {
+                headers: {
+                    autorization: ongId,
+                }
+            });
+            setIncidents(incidents.filter(incident => incident.id !== id));
+        } catch (error) {
+            alert('erro ao deletar o incidente');
+        }
+    }
+
     return (
         <div className="profile-container">
             <header>
@@ -33,16 +47,16 @@ export default function Profile() {
             <h1>Casos Cadastrados</h1>
             <ul>
                 {incidents.map(incident => (
-                    <li>
+                    <li key={incident.id}>
                         <strong> Caso:</strong>
                         <p>{incident.title}</p>
                         <strong>Descrição:</strong>
                         <p>{incident.description}</p>
 
                         <strong>Valor:</strong>
-                        <p>{incident.value}</p>
+                        <p>{Intl.NumberFormat('pt-br', { style: 'currency', currency: 'BRL' }).format(incident.value)}</p>
 
-                        <button type="button">
+                        <button type="button" onClick={() => deleteIncident(incident.id)} type="button">
                             <FiTrash2 size={20} color="#a8a8b3" />
                         </button>
                     </li>
