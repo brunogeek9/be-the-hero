@@ -1,17 +1,24 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Feather } from '@expo/vector-icons'
 import { useNavigation } from '@react-navigation/native'
 import { FlatList, View, Image, Text, TouchableOpacity } from 'react-native';
 import logoImg from '../../assets/logo.png'
 import Styles from './styles';
-
+import api from '../../services/api'
 export default function Incidents() {
     const navigator = useNavigation();
+    const [incidents, setIncidents] = useState([]);
     function navigateToDetail() {
         navigator.navigate("Detail");
         // console.log('clicou');
     }
-
+    async function loadIncidents() {
+        const response = await api.get('incidents');
+        setIncidents(response.data);
+    }
+    useEffect(() => {
+        loadIncidents();
+    },[])
     return (
         <View style={Styles.container}>
             <View style={Styles.header}>
@@ -25,19 +32,24 @@ export default function Incidents() {
             <Text style={Styles.description}> Escolha um dos casos abaixo e salve o dia </Text>
 
             <FlatList
-                // keyExtractor={Math.random()}
                 style={Styles.incidentList}
-                data={[1, 2, 3]}
-                renderItem={() => (
+                data={incidents}
+                keyExtractor={incident => String(incident.id)}
+                onEndReachedThreshold={0.2}
+                showsVerticalScrollIndicator={false}
+                renderItem={({ item: incident }) => (
                     <View style={Styles.incident}>
                         <Text style={Styles.incidentProperty}> ONG: </Text>
-                        <Text style={Styles.incidentValue}> APAD </Text>
+                        <Text style={Styles.incidentValue}> {incident.name} </Text>
 
                         <Text style={Styles.incidentProperty}> CASO: </Text>
-                        <Text style={Styles.incidentValue}> Dog ferido </Text>
+                        <Text style={Styles.incidentValue}> {incident.title} </Text>
 
                         <Text style={Styles.incidentProperty}> VALOR: </Text>
-                        <Text style={Styles.incidentValue}> 1000R$ </Text>
+                        <Text style={Styles.incidentValue}>
+                            {Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" })
+                                .format(incident.value)}
+                        </Text>
                         <TouchableOpacity
                             style={Styles.detailsButton}
                             onPress={navigateToDetail}>
