@@ -8,23 +8,47 @@ import api from '../../services/api'
 export default function Incidents() {
     const navigator = useNavigation();
     const [incidents, setIncidents] = useState([]);
-    function navigateToDetail() {
-        navigator.navigate("Detail");
+    const [total, setTotal] = useState(0);
+    const [page, setPage] = useState(1);
+    const [loading, setLoading] = useState(false);
+
+
+
+    function navigateToDetail(incident) {
+        navigator.navigate("Detail", { incident });
         // console.log('clicou');
     }
     async function loadIncidents() {
-        const response = await api.get('incidents');
-        setIncidents(response.data);
+        if (loading) {
+            return;
+        }
+
+        if (total > 0 && incidents.length === total) {
+            return;
+        }
+
+        setLoading(true);
+
+        const response = await api.get(`incidents`, {
+            params: { page }
+        });
+
+        // setIncidents(response.data);
+        setIncidents([...incidents, ...response.data])
+        setTotal(response.headers['x-total-count']);
+        setPage(page + 1);
+        setLoading(false);
+
     }
     useEffect(() => {
         loadIncidents();
-    },[])
+    }, [])
     return (
         <View style={Styles.container}>
             <View style={Styles.header}>
                 <Image source={logoImg} />
                 <Text>
-                    Total de <Text style={Styles.headerTextBold}>0 Casos</Text>
+                    Total de <Text style={Styles.headerTextBold}>{total} Casos</Text>
                 </Text>
             </View>
 
@@ -36,6 +60,7 @@ export default function Incidents() {
                 data={incidents}
                 keyExtractor={incident => String(incident.id)}
                 onEndReachedThreshold={0.2}
+                onEndReached={loadIncidents}
                 showsVerticalScrollIndicator={false}
                 renderItem={({ item: incident }) => (
                     <View style={Styles.incident}>
@@ -52,7 +77,7 @@ export default function Incidents() {
                         </Text>
                         <TouchableOpacity
                             style={Styles.detailsButton}
-                            onPress={navigateToDetail}>
+                            onPress={() => navigateToDetail(incident)}>
                             <Text style={Styles.detailsButtonText}>Detalhes Caso</Text>
                             <Feather name="arrow-right" size={17} color="#E02041" />
                         </TouchableOpacity>

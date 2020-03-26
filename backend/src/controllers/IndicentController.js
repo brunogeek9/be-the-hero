@@ -8,8 +8,8 @@ module.exports = {
         return res.json({ id });
     },
     async index(req, res) {
-        const { page = 1 } = req.query;
-
+        const { page = 1 } = req.params;
+        console.log(`Pagina ${page}`);
         const [count] = await con(TABLE_NAME).count();
         console.log(count);
         res.header('X-Total-Count', count['count(*)'])
