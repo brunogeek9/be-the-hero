@@ -7,9 +7,9 @@ import Styles from './styles';
 
 export default function Incidents() {
     const navigator = useNavigation();
-    function navigateToDetail(){
-        navigator.navigate('Detail');
-        console.log('clicou');
+    function navigateToDetail() {
+        navigator.navigate("Detail");
+        // console.log('clicou');
     }
 
     return (
@@ -25,6 +25,7 @@ export default function Incidents() {
             <Text style={Styles.description}> Escolha um dos casos abaixo e salve o dia </Text>
 
             <FlatList
+                // keyExtractor={Math.random()}
                 style={Styles.incidentList}
                 data={[1, 2, 3]}
                 renderItem={() => (
