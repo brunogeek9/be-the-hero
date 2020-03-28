@@ -9,6 +9,7 @@ const SessionController = require('./controllers/SessionController');
 
 const { celebrate, Segments, Joi } = require('celebrate');
 
+//validar se o id esta vindo no login
 routes.post('/sessions', SessionController.create);
 
 routes.post('/ongs', celebrate({
@@ -24,9 +25,14 @@ routes.post('/ongs', celebrate({
 
 routes.get('/ongs', OngControler.index);
 
+//validar criação de incidente
 routes.post('/incidents', IncidentControler.create);
 
-routes.get('/incidents', IncidentControler.index);
+routes.get('/incidents',celebrate({
+    [Segments.QUERY]: Joi.object().keys({
+        page: Joi.number(),
+    })
+}) ,IncidentControler.index);
 
 routes.get('/profile', celebrate({
     [Segments.HEADERS]: Joi.object({
@@ -34,9 +40,13 @@ routes.get('/profile', celebrate({
     }).unknown(),
 }), ProfileControler.index);
 
-routes.delete('/incidents/:id', IncidentControler.delete);
+routes.delete('/incidents/:id', celebrate({
+    [Segments.PARAMS]: Joi.object().keys({
+        id: Joi.number().required()
+    })
+}),IncidentControler.delete);
 
-routes.get('/sobre', (req, res) => {
+routes.get('/about', (req, res) => {
     res.json({
         nome: 'Bruno Jamelli',
         hobbyes: ['animes', 'filmes sul coreanos', 'fazer comidas saudáveis']

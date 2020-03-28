@@ -30,7 +30,7 @@ module.exports = {
     },
     async delete(req, res) {
         const { id } = req.params;
-        const ong_id = req.headers.autorization;
+        const ong_id = req.headers.authorization;
         const incidents = await con(TABLE_NAME)
             .where('id', id)
             .select('ong_id')
