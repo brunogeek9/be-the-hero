@@ -28,12 +28,18 @@ routes.get('/ongs', OngControler.index);
 //validar criação de incidente
 routes.post('/incidents', IncidentControler.create);
 
-routes.get('/incidents',celebrate({
+routes.get('/incidents', celebrate({
     [Segments.QUERY]: Joi.object().keys({
         page: Joi.number(),
     })
-}) ,IncidentControler.index);
-
+}), IncidentControler.index);
+/* 
+celebrate({
+    [Segments.HEADERS]: Joi.object({
+        authorization: Joi.string().required(),
+    }).unknown(),
+}),
+*/
 routes.get('/profile', celebrate({
     [Segments.HEADERS]: Joi.object({
         authorization: Joi.string().required(),
@@ -44,7 +50,7 @@ routes.delete('/incidents/:id', celebrate({
     [Segments.PARAMS]: Joi.object().keys({
         id: Joi.number().required()
     })
-}),IncidentControler.delete);
+}), IncidentControler.delete);
 
 routes.get('/about', (req, res) => {
     res.json({

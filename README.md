@@ -26,3 +26,5 @@ Interface Mobile
 * **Expo-mail-composer:** biblioteca que provê envio de email dentro de aplicações react native do expo.
 * **React-native-gesture-handler:** biblioteca usada para detectação de gestos do usuário como cliques em botões. 
 * **React-navigation/native:** biblioteca que provê a navegação entre diferentes telas em aplicações para dispositivos móveis, existem muitos tipos de navegação, nessa aplicação foi utilizado a navegação em pilha, com basicamente duas telas, com a navegação indo da tela 1 para a 2 e vice versa.
+### **Demonstração da aplicação Web**
+![](screenshots/frontend_web.gif)
