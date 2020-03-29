@@ -29,4 +29,8 @@ Interface Mobile
 ### **Demonstração da aplicação Web**
 ![](screenshots/frontend_web.gif)
 ### **Demonstração do app mobile**
+<div style="width:30%">
+
 ![](screenshots/appdemo.gif)
+
+</div>

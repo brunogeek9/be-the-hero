@@ -10,9 +10,8 @@ export default function Detail() {
     const navegation = useNavigation();
     const route = useRoute();
     const incident = route.params.incident;
-    const msg = `Olá ${incident.name} estou entrando em contato pois gostaria de ajudar no caso 
-    ${incident.title} com o valor de ${Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" })
-            .format(incident.value)}`
+    const msg = `Olá ${incident.name} estou entrando em contato pois gostaria de ajudar no caso ${incident.title} com o valor de ${Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" })
+        .format(incident.value)}`
     function home() {
         navegation.goBack();
     }
