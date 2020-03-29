@@ -1,5 +1,5 @@
 # **be the hero**
-Projeto criado para centralizar as ongs e as pessoas que querem ajudá las, futuramente farei a implantação do projeto no digital ocean ou no heroku, para assim as pessoas da minha região poderem utilizado.
+Projeto criado para centralizar informações de ongs e a pessoas que querem ajudá las, futuramente farei a implantação do projeto na digital ocean ou no heroku, para assim as pessoas da minha região poderem utilizalo.
 
 O projeto foi desenvolvido dentro da semana omnistack 11, evento criado pelo pessoal da rocketseat.
 Em relação a stack utilizada, o projeto foi desenvolvido apenas com javascript, do backend ao frontend, com express, celebrate e knex no backend, no frontend web com react e axios e no frontend mobile com expo, react-native e axios. A seguir será explicado a função de cada biblioteca/framework no desenvolvimento do projeto.
@@ -9,7 +9,7 @@ Em relação a stack utilizada, o projeto foi desenvolvido apenas com javascript
 - **Express**: framework muito utilizado para desenvolvimento de aplicações backend com node, utilizei ele para tratar todas as rotas, requisições http ao backend, ele foi basicamente o núcleo da API REST do projeto, conectando os frontends a basicamente a camada de dados da aplicação.
 
 - **Celebrate**: biblioteca utilizada para as validações as requisições a API.
-- **Knex: ** é uma biblioteca query builder, que atuou basicamente tratando de toda a comunicação e gerência de banco de dados sql, trazendo assim uma camada de abstração a parte de comunicação com o banco de dados e facilitando o desenvolvimento da persistência de dados da aplicação.
+- **Knex:** é uma biblioteca query builder, que atuou basicamente tratando de toda a comunicação e gerência de banco de dados sql, trazendo assim uma camada de abstração a parte de comunicação com o banco de dados e facilitando o desenvolvimento da persistência de dados da aplicação.
 
 ### **Interface Web** 
 
@@ -28,3 +28,5 @@ Interface Mobile
 * **React-navigation/native:** biblioteca que provê a navegação entre diferentes telas em aplicações para dispositivos móveis, existem muitos tipos de navegação, nessa aplicação foi utilizado a navegação em pilha, com basicamente duas telas, com a navegação indo da tela 1 para a 2 e vice versa.
 ### **Demonstração da aplicação Web**
 ![](screenshots/frontend_web.gif)
+### **Demonstração do app mobile**
+![](screenshots/appdemo.gif)
